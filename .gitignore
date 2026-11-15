@@ -1,0 +1,15 @@
+# Local WordPress test site: disposable install, SQLite DB, downloads
+wp-test/
+
+# Build output
+dist/
+*.zip
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db
+
+# Environment files
+.env
+.env.*
