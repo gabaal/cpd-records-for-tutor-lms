@@ -25,16 +25,16 @@ define( 'CPD_RECORDS_FILE', __FILE__ );
 define( 'CPD_RECORDS_DIR', plugin_dir_path( __FILE__ ) );
 define( 'CPD_RECORDS_URL', plugin_dir_url( __FILE__ ) );
 
-require_once CPD_RECORDS_DIR . 'includes/class-gdc.php';
-require_once CPD_RECORDS_DIR . 'includes/class-repository.php';
-require_once CPD_RECORDS_DIR . 'includes/class-activator.php';
-require_once CPD_RECORDS_DIR . 'includes/class-course-meta.php';
-require_once CPD_RECORDS_DIR . 'includes/class-completion-listener.php';
-require_once CPD_RECORDS_DIR . 'includes/class-user-profile.php';
-require_once CPD_RECORDS_DIR . 'includes/class-dashboard.php';
-require_once CPD_RECORDS_DIR . 'includes/class-export.php';
-require_once CPD_RECORDS_DIR . 'includes/class-admin.php';
-require_once CPD_RECORDS_DIR . 'includes/class-plugin.php';
+require_once CPD_RECORDS_DIR . 'includes/class-cpd-records-gdc.php';
+require_once CPD_RECORDS_DIR . 'includes/class-cpd-records-repository.php';
+require_once CPD_RECORDS_DIR . 'includes/class-cpd-records-activator.php';
+require_once CPD_RECORDS_DIR . 'includes/class-cpd-records-course-meta.php';
+require_once CPD_RECORDS_DIR . 'includes/class-cpd-records-completion-listener.php';
+require_once CPD_RECORDS_DIR . 'includes/class-cpd-records-user-profile.php';
+require_once CPD_RECORDS_DIR . 'includes/class-cpd-records-dashboard.php';
+require_once CPD_RECORDS_DIR . 'includes/class-cpd-records-export.php';
+require_once CPD_RECORDS_DIR . 'includes/class-cpd-records-admin.php';
+require_once CPD_RECORDS_DIR . 'includes/class-cpd-records-plugin.php';
 
 register_activation_hook( __FILE__, array( 'CPD_Records_Activator', 'activate' ) );
 

@@ -9,6 +9,10 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+// This class is the repository for the plugin's own custom table, so direct
+// $wpdb queries and the absence of an object cache are intentional.
+// phpcs:disable WordPress.DB.DirectDatabaseQuery
+
 /**
  * Repository for the custom CPD records table.
  */
@@ -175,7 +179,7 @@ class CPD_Records_Repository {
 
 		$table = self::table();
 		$row   = $wpdb->get_row(
-			$wpdb->prepare( "SELECT * FROM {$table} WHERE dedupe_key = %s LIMIT 1", $key ),
+			$wpdb->prepare( 'SELECT * FROM %i WHERE dedupe_key = %s LIMIT 1', $table, $key ),
 			ARRAY_A
 		);
 
@@ -194,8 +198,8 @@ class CPD_Records_Repository {
 		global $wpdb;
 
 		$table  = self::table();
-		$sql    = "SELECT * FROM {$table} WHERE user_id = %d";
-		$params = array( absint( $user_id ) );
+		$sql    = 'SELECT * FROM %i WHERE user_id = %d';
+		$params = array( $table, absint( $user_id ) );
 
 		if ( $from && CPD_Records_GDC::is_valid_date( $from ) ) {
 			$sql     .= ' AND activity_date >= %s';
@@ -209,6 +213,7 @@ class CPD_Records_Repository {
 
 		$sql .= ' ORDER BY activity_date DESC, id DESC';
 
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Placeholders are assembled above and passed through prepare().
 		return $wpdb->get_results( $wpdb->prepare( $sql, ...$params ), ARRAY_A );
 	}
 
@@ -225,7 +230,7 @@ class CPD_Records_Repository {
 
 		$table  = self::table();
 		$where  = '';
-		$params = array();
+		$params = array( $table );
 
 		if ( $user_id ) {
 			$where    = 'WHERE user_id = %d';
@@ -235,8 +240,9 @@ class CPD_Records_Repository {
 		$params[] = max( 1, absint( $limit ) );
 		$params[] = absint( $offset );
 
-		$sql = "SELECT * FROM {$table} {$where} ORDER BY activity_date DESC, id DESC LIMIT %d OFFSET %d";
+		$sql = 'SELECT * FROM %i ' . $where . ' ORDER BY activity_date DESC, id DESC LIMIT %d OFFSET %d';
 
+		// phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared -- Placeholders are assembled above and passed through prepare().
 		return $wpdb->get_results( $wpdb->prepare( $sql, ...$params ), ARRAY_A );
 	}
 
@@ -252,10 +258,10 @@ class CPD_Records_Repository {
 		$table = self::table();
 
 		if ( $user_id ) {
-			return (int) $wpdb->get_var( $wpdb->prepare( "SELECT COUNT(*) FROM {$table} WHERE user_id = %d", absint( $user_id ) ) );
+			return (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i WHERE user_id = %d', $table, absint( $user_id ) ) );
 		}
 
-		return (int) $wpdb->get_var( "SELECT COUNT(*) FROM {$table}" );
+		return (int) $wpdb->get_var( $wpdb->prepare( 'SELECT COUNT(*) FROM %i', $table ) );
 	}
 
 	/**
@@ -275,6 +281,6 @@ class CPD_Records_Repository {
 	public static function drop_table() {
 		global $wpdb;
 		$table = self::table();
-		$wpdb->query( "DROP TABLE IF EXISTS {$table}" ); // phpcs:ignore WordPress.DB.PreparedSQL.NotPrepared
+		$wpdb->query( $wpdb->prepare( 'DROP TABLE IF EXISTS %i', $table ) );
 	}
 }

@@ -197,9 +197,9 @@ class CPD_Records_GDC {
 	 * @return array|null
 	 */
 	public static function summarise( $records, $role_key, $cycle_start, $as_of = null ) {
-		$role        = self::role( $role_key );
-		$cycle       = self::cycle_bounds( $cycle_start, $as_of );
-		$as_of_date  = null === $as_of ? self::now() : self::to_date( $as_of );
+		$role       = self::role( $role_key );
+		$cycle      = self::cycle_bounds( $cycle_start, $as_of );
+		$as_of_date = null === $as_of ? self::now() : self::to_date( $as_of );
 
 		if ( ! $role || ! $cycle || ! $as_of_date ) {
 			return null;
@@ -273,11 +273,12 @@ class CPD_Records_GDC {
 		ksort( $by_year );
 		$years = array_values( $by_year );
 
-		$windows         = array();
-		$two_year_pass   = true;
+		$windows          = array();
+		$two_year_pass    = true;
 		$consecutive_zero = false;
+		$year_count       = count( $years );
 
-		for ( $i = 0; $i < count( $years ) - 1; $i++ ) {
+		for ( $i = 0; $i < $year_count - 1; $i++ ) {
 			$window_hours = $years[ $i ]['hours'] + $years[ $i + 1 ]['hours'];
 			$pass         = $window_hours >= 10;
 			$complete     = $years[ $i + 1 ]['end'] <= $as_of_date;

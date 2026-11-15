@@ -7,7 +7,7 @@
 
 define( 'CPD_RECORDS_TESTS', true );
 
-require_once __DIR__ . '/../includes/class-gdc.php';
+require_once __DIR__ . '/../includes/class-cpd-records-gdc.php';
 
 $passed = 0;
 $failed = 0;

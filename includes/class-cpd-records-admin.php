@@ -104,9 +104,9 @@ class CPD_Records_Admin {
 			return;
 		}
 
-		$page        = isset( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1;
+		$page        = isset( $_GET['paged'] ) ? max( 1, absint( $_GET['paged'] ) ) : 1; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only list filter.
 		$per_page    = 50;
-		$user_filter = isset( $_GET['user_id'] ) ? absint( $_GET['user_id'] ) : 0;
+		$user_filter = isset( $_GET['user_id'] ) ? absint( $_GET['user_id'] ) : 0; // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- Read-only list filter.
 		$total       = CPD_Records_Repository::count_all( $user_filter );
 		$records     = CPD_Records_Repository::get_all( $per_page, ( $page - 1 ) * $per_page, $user_filter );
 

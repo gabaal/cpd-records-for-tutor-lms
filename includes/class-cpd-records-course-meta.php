@@ -137,8 +137,8 @@ class CPD_Records_Course_Meta {
 		}
 
 		$raw_hours = isset( $_POST['cpd_records_hours'] ) && is_scalar( $_POST['cpd_records_hours'] )
-			? wp_unslash( $_POST['cpd_records_hours'] )
-			: 0;
+			? sanitize_text_field( wp_unslash( $_POST['cpd_records_hours'] ) )
+			: '';
 		$hours     = max( 0, min( 1000, round( (float) $raw_hours, 2 ) ) );
 
 		if ( $hours > 0 ) {
@@ -148,8 +148,10 @@ class CPD_Records_Course_Meta {
 		}
 
 		$allowed  = array_keys( CPD_Records_GDC::outcomes() );
-		$outcomes = isset( $_POST['cpd_records_outcomes'] ) ? (array) wp_unslash( $_POST['cpd_records_outcomes'] ) : array();
-		$outcomes = array_intersect( $allowed, array_map( 'sanitize_text_field', $outcomes ) );
+		$outcomes = isset( $_POST['cpd_records_outcomes'] ) && is_array( $_POST['cpd_records_outcomes'] )
+			? array_map( 'sanitize_text_field', wp_unslash( $_POST['cpd_records_outcomes'] ) )
+			: array();
+		$outcomes = array_intersect( $allowed, $outcomes );
 		$outcomes = array_values( $outcomes );
 
 		if ( $outcomes ) {

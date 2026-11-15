@@ -40,7 +40,7 @@ class CPD_Records_Export {
 			}
 
 			if (
-				$user_id !== get_current_user_id() &&
+				get_current_user_id() !== $user_id &&
 				! current_user_can( 'edit_user', $user_id ) &&
 				! current_user_can( 'manage_options' )
 			) {
@@ -136,7 +136,7 @@ class CPD_Records_Export {
 			);
 		}
 
-		fclose( $output );
+		fclose( $output ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_system_operations_fclose -- CSV is streamed to php://output, not the filesystem.
 		exit;
 	}
 

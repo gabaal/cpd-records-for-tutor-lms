@@ -52,6 +52,17 @@ done
 
 Current state: **48 calculator tests passing, 7 smoke checks passing.**
 
+## Coding standards
+
+The plugin is checked with PHPCS and the WordPress Coding Standards (WPCS 3.4) using `phpcs.xml.dist`.
+
+```bash
+composer global require squizlabs/php_codesniffer wp-coding-standards/wpcs:^3.4
+phpcs
+```
+
+Current state: **clean against the full `WordPress` standard.**
+
 ## Local WordPress test site
 
 `wp-test/` contains a disposable WordPress install running on SQLite, with Tutor LMS 4.2.1 and this plugin active.
@@ -101,19 +112,20 @@ Creates `dist/cpd-records-for-tutor-lms-0.1.0.zip` with the plugin folder at the
 
 ```
 cpd-records-for-tutor-lms.php   plugin header, constants, bootstrap
-includes/class-gdc.php          GDC rules and pure-PHP calculator
-includes/class-repository.php   custom table and queries
-includes/class-activator.php    table creation
-includes/class-course-meta.php  course hours/outcomes meta box and list column
-includes/class-completion-listener.php  Tutor completion hook
-includes/class-user-profile.php GDC role and cycle start on the profile
-includes/class-dashboard.php    learner shortcode and setup form
-includes/class-export.php       learner and admin CSV exports
-includes/class-admin.php        Tools page, records list, uninstall setting
-includes/class-plugin.php       wiring, privacy text, plugin links
+includes/class-cpd-records-gdc.php          GDC rules and pure-PHP calculator
+includes/class-cpd-records-repository.php   custom table and queries
+includes/class-cpd-records-activator.php    table creation
+includes/class-cpd-records-course-meta.php  course hours/outcomes meta box and list column
+includes/class-cpd-records-completion-listener.php  Tutor completion hook
+includes/class-cpd-records-user-profile.php GDC role and cycle start on the profile
+includes/class-cpd-records-dashboard.php    learner shortcode and setup form
+includes/class-cpd-records-export.php       learner and admin CSV exports
+includes/class-cpd-records-admin.php        Tools page, records list, uninstall setting
+includes/class-cpd-records-plugin.php       wiring, privacy text, plugin links
 assets/css/dashboard.css        dashboard styles (responsive, dark mode)
 tests/run.php                   GDC calculator tests
 tests/smoke.php                 class-loading and hook tests
+phpcs.xml.dist                  PHPCS configuration (WordPress standard)
 tools/make-assets.py            generates the WordPress.org icons and banner
 wporg-assets/                   WordPress.org listing art (not packaged in the ZIP)
 ```
@@ -133,6 +145,6 @@ wporg-assets/                   WordPress.org listing art (not packaged in the Z
 - Confirm the `Contributors:` line in `readme.txt` matches your WordPress.org username (currently `gabaal`).
 - Upload the listing art in `wporg-assets/` to the WordPress.org repository's top-level `assets/` directory (SVN, not trunk): `icon-128x128.png`, `icon-256x256.png`, `banner-772x250.png`, `banner-1544x500.png`.
 - Upload `screenshot-1.png` to `screenshot-4.png` from `wporg-assets/` to the same SVN `assets/` directory. The captions in `readme.txt` describe them in order.
-- Run `composer`/PHPCS with the WordPress coding standards if available.
+- Run `phpcs` with the WordPress Coding Standards (see “Coding standards” above) before tagging a release.
 - Test on a real MySQL install with Tutor LMS, including the block editor and classic editor course screens.
 - Decide whether hours without an outcome should block saving (currently it warns).

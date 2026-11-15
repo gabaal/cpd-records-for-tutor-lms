@@ -100,7 +100,7 @@ class CPD_Records_Dashboard {
 	 * @param string $tag     Shortcode tag.
 	 * @return string
 	 */
-	public function render( $atts = array(), $content = '', $tag = '' ) {
+	public function render( $atts = array(), $content = '', $tag = '' ) { // phpcs:ignore Generic.CodeAnalysis.UnusedFunctionParameter -- Shortcode callback signature.
 		if ( ! is_user_logged_in() ) {
 			$login_url = wp_login_url( get_permalink() );
 			return '<div class="cpd-records cpd-records--notice"><p>' . sprintf(
