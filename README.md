@@ -87,6 +87,31 @@ Demo accounts:
 
 The SQLite database is at `wp-test/db/test.sqlite`. The test site uses SQLite only for local testing; production should use MySQL/MariaDB.
 
+### MySQL/MariaDB test site
+
+`wp-test/wp-mysql/` is a second WordPress install on a real MariaDB 11.4.8 server (port 3307, site at http://localhost:8081). It verifies the schema and queries against the database engine WordPress.org runs.
+
+```bash
+cd wp-test
+
+# Start MariaDB (portable server in wp-test/mysql) and the site
+powershell -NoProfile -File mysql-start.ps1
+./serve-mysql.sh
+# http://localhost:8081
+
+# Run WP-CLI against it
+./wp-mysql.sh plugin list
+./wp-mysql.sh eval 'global $wpdb; echo $wpdb->db_version();'
+```
+
+Stop MariaDB with `powershell -NoProfile -File mysql-stop.ps1`. Demo accounts are the same as the SQLite site. The database files live in `wp-test/mysql/data`; the server and this site are local-only and gitignored.
+
+If the Tutor course edit screen says you are not allowed to edit the item, the administrator role is missing Tutor’s custom capabilities. Grant them with:
+
+```bash
+./wp-mysql.sh cap add administrator edit_tutor_course read_tutor_course delete_tutor_course edit_tutor_courses edit_others_tutor_courses delete_tutor_courses publish_tutor_courses read_private_tutor_courses
+```
+
 Verified end to end on 2026-11-14:
 
 - Plugin activation creates `wp_cpd_records`.
@@ -99,6 +124,15 @@ Verified end to end on 2026-11-14:
 - A course titled `=SUM(1,1)` is exported as `'=SUM(1,1)` (formula injection guard).
 - The course meta box registers on the `courses` post type.
 - The dashboard page renders over HTTP (login prompt for logged-out visitors).
+
+Verified on MariaDB 11.4.8 (real MySQL protocol) on 2026-11-15:
+
+- Activation creates `wp_cpd_records` as an InnoDB table with the expected columns.
+- Course completion, duplicate prevention and the no-hours skip behave as they do on SQLite.
+- The course meta box renders in the classic course editor and saves hours and outcomes.
+- The block editor loads the dashboard page without console errors.
+- The learner dashboard and both CSV exports return the record.
+- A UTF-8 activity title round-trips through the table.
 
 ## Package
 
@@ -145,6 +179,6 @@ wporg-assets/                   WordPress.org listing art (not packaged in the Z
 - Confirm the `Contributors:` line in `readme.txt` matches your WordPress.org username (currently `gabaal`).
 - Upload the listing art in `wporg-assets/` to the WordPress.org repository's top-level `assets/` directory (SVN, not trunk): `icon-128x128.png`, `icon-256x256.png`, `banner-772x250.png`, `banner-1544x500.png`.
 - Upload `screenshot-1.png` to `screenshot-4.png` from `wporg-assets/` to the same SVN `assets/` directory. The captions in `readme.txt` describe them in order.
-- Run `phpcs` with the WordPress Coding Standards (see “Coding standards” above) before tagging a release.
-- Test on a real MySQL install with Tutor LMS, including the block editor and classic editor course screens.
+- Run `phpcs` before tagging a release.
+- Re-run the MySQL test site after any schema or query change.
 - Decide whether hours without an outcome should block saving (currently it warns).
