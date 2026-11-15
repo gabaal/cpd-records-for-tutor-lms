@@ -60,9 +60,10 @@ Not yet. This version implements the GDC scheme only.
 
 == Screenshots ==
 
-1. The CPD credit box on a Tutor LMS course.
-2. The learner dashboard.
-3. The records page and CSV export.
+1. The learner dashboard: progress towards the five-year requirement, hours by development outcome, the two-year minimum status, and the records in the cycle.
+2. The CPD credit box on a Tutor LMS course, with CPD hours and development outcomes.
+3. The admin records page, with learner filtering and the full CSV export.
+4. The setup form where a learner chooses their GDC role and cycle start date.
 
 == Changelog ==
 

@@ -132,7 +132,7 @@ wporg-assets/                   WordPress.org listing art (not packaged in the Z
 
 - Confirm the `Contributors:` line in `readme.txt` matches your WordPress.org username (currently `gabaal`).
 - Upload the listing art in `wporg-assets/` to the WordPress.org repository's top-level `assets/` directory (SVN, not trunk): `icon-128x128.png`, `icon-256x256.png`, `banner-772x250.png`, `banner-1544x500.png`.
-- Add screenshots to `readme.txt` and the same SVN `assets/` directory (`screenshot-1.png`, …).
+- Upload `screenshot-1.png` to `screenshot-4.png` from `wporg-assets/` to the same SVN `assets/` directory. The captions in `readme.txt` describe them in order.
 - Run `composer`/PHPCS with the WordPress coding standards if available.
 - Test on a real MySQL install with Tutor LMS, including the block editor and classic editor course screens.
 - Decide whether hours without an outcome should block saving (currently it warns).
