@@ -114,6 +114,8 @@ includes/class-plugin.php       wiring, privacy text, plugin links
 assets/css/dashboard.css        dashboard styles (responsive, dark mode)
 tests/run.php                   GDC calculator tests
 tests/smoke.php                 class-loading and hook tests
+tools/make-assets.py            generates the WordPress.org icons and banner
+wporg-assets/                   WordPress.org listing art (not packaged in the ZIP)
 ```
 
 ## Not in this version (Pro roadmap)
@@ -129,7 +131,8 @@ tests/smoke.php                 class-loading and hook tests
 ## Before a WordPress.org submission
 
 - Confirm the `Contributors:` line in `readme.txt` matches your WordPress.org username (currently `gabaal`).
-- Add screenshots to `readme.txt` and the `assets/` directory (`icon-128x128.png`, `icon-256x256.png`, `banner-772x250.png`).
+- Upload the listing art in `wporg-assets/` to the WordPress.org repository's top-level `assets/` directory (SVN, not trunk): `icon-128x128.png`, `icon-256x256.png`, `banner-772x250.png`, `banner-1544x500.png`.
+- Add screenshots to `readme.txt` and the same SVN `assets/` directory (`screenshot-1.png`, …).
 - Run `composer`/PHPCS with the WordPress coding standards if available.
 - Test on a real MySQL install with Tutor LMS, including the block editor and classic editor course screens.
 - Decide whether hours without an outcome should block saving (currently it warns).
