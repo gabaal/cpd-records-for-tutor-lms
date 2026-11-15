@@ -4,7 +4,7 @@ Free core of a GDC CPD tracker for Tutor LMS. Built 2026-11-14.
 
 The plugin assigns CPD hours and development outcomes to a Tutor LMS course, writes a CPD record when a learner completes it, and gives each learner a dashboard with cycle progress, hours by outcome, the two-year minimum status, and CSV export.
 
-See `SPEC.md` for the product scope and `../plugin-scan/2026-11-14-wordpress-plugin-scan.md` for the market scan behind it.
+See `SPEC.md` for the product scope and `docs/2026-11-14-wordpress-plugin-scan.md` for the market scan behind it.
 
 ## What is built
 
@@ -35,18 +35,18 @@ Copy the `cpd-records-for-tutor-lms` folder into `wp-content/plugins/`, or insta
 
 ## Tests
 
-The portable PHP build is at `../plugin-scan/tools/php84/php.exe`.
+The tests need a PHP 8.4 CLI (`php` below; in the original workspace the portable build was `../plugin-scan/tools/php84/php.exe`).
 
 ```bash
 # Pure GDC calculator tests
-../plugin-scan/tools/php84/php.exe tests/run.php
+php tests/run.php
 
 # Class-loading and hook smoke test
-../plugin-scan/tools/php84/php.exe tests/smoke.php
+php tests/smoke.php
 
 # Syntax check
 find . -name "*.php" -print0 | while IFS= read -r -d '' f; do
-  ../plugin-scan/tools/php84/php.exe -l "$f" || exit 1
+  php -l "$f" || exit 1
 done
 ```
 
@@ -128,7 +128,7 @@ tests/smoke.php                 class-loading and hook tests
 
 ## Before a WordPress.org submission
 
-- Replace the placeholder Plugin URI and Author in the plugin header and `readme.txt`.
+- Confirm the `Contributors:` line in `readme.txt` matches your WordPress.org username (currently `gabaal`).
 - Add screenshots to `readme.txt` and the `assets/` directory (`icon-128x128.png`, `icon-256x256.png`, `banner-772x250.png`).
 - Run `composer`/PHPCS with the WordPress coding standards if available.
 - Test on a real MySQL install with Tutor LMS, including the block editor and classic editor course screens.

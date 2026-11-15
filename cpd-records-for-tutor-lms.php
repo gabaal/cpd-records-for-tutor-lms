@@ -1,12 +1,13 @@
 <?php
 /**
  * Plugin Name:       CPD Records for Tutor LMS
- * Plugin URI:        https://example.com/cpd-records-for-tutor-lms
+ * Plugin URI:        https://github.com/gabaal/cpd-records-for-tutor-lms
  * Description:       Track GDC CPD hours and development outcomes for Tutor LMS courses.
  * Version:           0.1.0
  * Requires at least: 6.4
  * Requires PHP:      7.4
- * Author:            CPD Records
+ * Author:            Gerald
+ * Author URI:        https://github.com/gabaal
  * License:           GPL-2.0-or-later
  * License URI:       https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain:       cpd-records-for-tutor-lms

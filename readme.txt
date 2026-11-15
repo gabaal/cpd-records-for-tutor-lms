@@ -1,5 +1,5 @@
 === CPD Records for Tutor LMS ===
-Contributors: cpdrecords
+Contributors: gabaal
 Tags: cpd, tutor lms, gdc, dental, cpd record, cpd tracker
 Requires at least: 6.4
 Tested up to: 7.1
